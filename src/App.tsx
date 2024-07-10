@@ -1,5 +1,5 @@
 import './App.css'
-import PostList from './components/PostList'
+import RouterConfig from './config/RouterConfig'
 
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
   
   return (
     <div>
-      <PostList/>
+      <RouterConfig/>
     </div>
   )
 }
