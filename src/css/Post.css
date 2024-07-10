@@ -4,27 +4,36 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    width: 80%;
+    width: 45%;
     max-width: 1200px;
-    margin: 30px auto;
+    margin: 0px auto;
     padding: 30px;
     box-sizing: border-box;
-    background-color: #f8f8f8;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #2f8883;
+    background-color: #fdfdfd;
+    /* box-shadow: 0 0 10px #2f8883; */
+    border: 1px solid #2f8883;
+    border-bottom-style: none;
     position: relative;
 
 }
 
-.post{
-    
+.post-text{
+    margin: 20px 50px 10px 50px;
+}
+
+.username{
+    margin-left: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2f8883;
 }
 
 .post-date {
     position: absolute; /* Absolute positioning for the post-date */
-    top: 8px;
-    right: 8px;
+    top: 16px;
+    right: 16px;
     font-size: 14px;
+    font-weight: bold;
     color: #2f8883;
 }
 
