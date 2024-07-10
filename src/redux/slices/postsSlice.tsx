@@ -12,7 +12,6 @@ const initialState : PostState = {
 } 
 
 
-
 export const fetchPosts = createAsyncThunk<PostType[],void,{}>("fetchPosts", async () => {
     const postCollection = collection(db,"Posts")
     const postSnapshot = await getDocs(postCollection)

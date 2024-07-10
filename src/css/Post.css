@@ -9,8 +9,9 @@
     margin: 0px auto;
     padding: 30px;
     box-sizing: border-box;
-    border: 1px solid #2f8883;
-    border-bottom-style: none;
+    /* border-left: 1px solid #2f8883;
+    border-right: 1px solid #2f8883; */
+    border-bottom: 1px solid #2f8883;
     position: relative;
     transition: all 0.2s ease 0s;
 }
