@@ -9,12 +9,13 @@
     margin: 0px auto;
     padding: 30px;
     box-sizing: border-box;
-    background-color: #fdfdfd;
-    /* box-shadow: 0 0 10px #2f8883; */
     border: 1px solid #2f8883;
     border-bottom-style: none;
     position: relative;
-
+    transition: all 0.2s ease 0s;
+}
+.container:hover{
+    background-color: #2f88832c;
 }
 
 .post-text{
