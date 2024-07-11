@@ -2,10 +2,13 @@ import "../css/PostCreate.css"
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import {  useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const PostCreate = () => {
 
     const [postText, setPostText] = useState("");
+    const {user} = useSelector((state:RootState) => state.auth)
 
     const getCurrentDateTime = () => {
     const now = new Date(); // Şu anki tarih ve saat bilgisini al
@@ -27,7 +30,8 @@ const PostCreate = () => {
         try{
         const docRef = await addDoc(collection(db,"Posts"),{
             postText:postText,
-            date:getCurrentDateTime()
+            date:getCurrentDateTime(),
+            userId: user.uid
         });
         console.log("Doc saved: ", docRef.id);
         setPostText("");

@@ -20,7 +20,8 @@ export const fetchPosts = createAsyncThunk<PostType[],void,{}>("fetchPosts", asy
     return postSnapshot.docs.map((doc) => ({
         id: doc.id,
         postText: doc.data().postText,
-        date: doc.data().date
+        date: doc.data().date,
+        userId: doc.data().userId
     })) as PostType[];
 })
 
