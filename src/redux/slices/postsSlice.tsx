@@ -36,7 +36,17 @@ export const postsSlice = createSlice({
             state.loading = true;
         })
         builder.addCase(fetchPosts.fulfilled, (state,action) => {
-            state.posts = action.payload
+            state.posts = action.payload.sort((a, b) => {
+            const parseDate = (dateStr: string) => {
+            // Gün, ay, yıl ve saat, dakika parçalarına ayır
+            const [day, month, year, hour, minute] = dateStr.split(/[/\s:]/).map(Number);
+            return new Date(year, month - 1, day, hour, minute);
+            };
+
+            const dateA = parseDate(a.date);
+            const dateB = parseDate(b.date);
+            return dateB.getTime() - dateA.getTime(); // Azalan sırada sıralama
+            });
             state.loading = false;
         })
     }
