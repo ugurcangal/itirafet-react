@@ -5,10 +5,12 @@ import { PostType } from '../../types/Types';
 
 interface PostState {
     posts: PostType[];
+    loading: boolean;
 }
 
 const initialState : PostState = {
     posts: [],
+    loading: false,
 } 
 
 
@@ -29,8 +31,12 @@ export const postsSlice = createSlice({
         
     },
     extraReducers:(builder) => {
+        builder.addCase(fetchPosts.pending, (state) => {
+            state.loading = true;
+        })
         builder.addCase(fetchPosts.fulfilled, (state,action) => {
             state.posts = action.payload
+            state.loading = false;
         })
     }
 })
