@@ -4,6 +4,11 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
+import { db } from "../firebase";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 
 interface PostProps{
@@ -11,7 +16,35 @@ interface PostProps{
 }
 
 const Post = ({postProps}: PostProps) => {
-  const {postText,date,userId} = postProps;
+  const {id,postText,date,userId,liker} = postProps;
+
+  const [currentLiker, setCurrentLiker] = useState(liker);
+  const {user} = useSelector((state:RootState) => state.auth)
+  
+  
+  const like = async () => {
+    try {
+      const postDocRef = doc(db, 'Posts', id);
+      await updateDoc(postDocRef, {
+        liker: arrayUnion(user.uid)
+      });
+      setCurrentLiker((currentLiker) => [...currentLiker, user.uid])
+    } catch (error) {
+      console.error('Error updating document: ', error);
+    }
+  };
+  
+  const dislike = async () => {
+    try {
+      const postDocRef = doc(db, 'Posts', id);
+      await updateDoc(postDocRef, {
+        liker: arrayRemove(user.uid)
+      });
+      setCurrentLiker((prev) => prev.filter((uid) => uid !== user.uid));
+    } catch (error) {
+      console.error('Error updating document: ', error);
+    }
+  };
   
   return (
     <div className="container">
@@ -19,9 +52,8 @@ const Post = ({postProps}: PostProps) => {
       <div className="post-text">{postText}</div>
       <div className="post-date">{date}</div>
       <div className="btn-container">
-        <div className="like-count">0</div>
-        <FaRegHeart className="icon" />
-        {/* <FaHeart className="icon"/> */}
+        <div className="like-count">{currentLiker.length}</div>
+        { currentLiker.includes(user.uid) ? <FaHeart onClick={dislike} className="icon"/> : <FaRegHeart onClick={like} className="icon" /> }
         <FaRegComment className="icon"/>
         <HiDotsVertical className="icon"/>
       </div>

@@ -21,7 +21,8 @@ export const fetchPosts = createAsyncThunk<PostType[],void,{}>("fetchPosts", asy
         id: doc.id,
         postText: doc.data().postText,
         date: doc.data().date,
-        userId: doc.data().userId
+        userId: doc.data().userId,
+        liker: doc.data().liker
     })) as PostType[];
 })
 

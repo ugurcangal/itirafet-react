@@ -31,7 +31,8 @@ const PostCreate = () => {
         const docRef = await addDoc(collection(db,"Posts"),{
             postText:postText,
             date:getCurrentDateTime(),
-            userId: user.uid
+            userId: user.uid,
+            liker: []
         });
         console.log("Doc saved: ", docRef.id);
         setPostText("");

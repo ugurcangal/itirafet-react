@@ -3,4 +3,5 @@ export interface PostType{
     postText: string,
     date: string,
     userId: string,
+    liker:string[],
 }
