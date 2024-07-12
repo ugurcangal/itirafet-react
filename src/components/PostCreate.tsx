@@ -2,15 +2,17 @@ import "../css/PostCreate.css"
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import {  useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { toast } from "react-toastify";
+import { fetchPosts } from "../redux/slices/postsSlice";
 
 
 const PostCreate = () => {
 
-    const [postText, setPostText] = useState("");
+    const [postText, setPostText] = useState<string>("");
     const {user} = useSelector((state:RootState) => state.auth)
+    const dispatch = useDispatch<any>();
 
     const getCurrentDateTime = () => {
     const now = new Date(); // Şu anki tarih ve saat bilgisini al
@@ -28,6 +30,8 @@ const PostCreate = () => {
     return formattedDateTime;
 };
     
+
+
     const addPost = async () => {
         if(postText.length > 10){
             try{
@@ -38,9 +42,10 @@ const PostCreate = () => {
                     liker: []
                 });
                 console.log("Doc id: ", docRef.id);
-                setPostText("");
                 // window.location.reload();
                 toast.success("İtirafınız Paylaşıldı...", {style:{backgroundColor:"#1c524f"}})
+                setPostText("");
+                dispatch(fetchPosts());
             }
             catch(e){
                 console.error("Error adding document: ", e)
@@ -52,7 +57,7 @@ const PostCreate = () => {
     
   return (
     <div className='postCreate-div'>
-        <input onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPostText(e.target.value)} className='post-input' type="text" placeholder='Bir itirafını paylaş...' />
+        <input value={postText} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPostText(e.target.value)} className='post-input' type="text" placeholder='Bir itirafını paylaş...' />
         <button onClick={addPost} className='post-create-btn' type="submit">Gönder</button>
     </div>
   )

@@ -11,7 +11,7 @@
     box-sizing: border-box;
     /* border-left: 1px solid #2f8883;
     border-right: 1px solid #2f8883; */
-    border-bottom: 1px solid #2f8883;
+    border-bottom: 1px solid #1c524f;
     position: relative;
     transition: all 0.2s ease 0s;
 }
@@ -33,7 +33,7 @@
 }
 
 .container:hover{
-    background-color: #2f88832c;
+    background-color: #1c524f2a;
 }
 
 .post-text{
@@ -45,7 +45,7 @@
     margin-left: 50px;
     font-size: 14px;
     font-weight: bold;
-    color: #2f8883;
+    color: #1c524f;
 }
 
 .post-date {
