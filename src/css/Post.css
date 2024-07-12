@@ -15,12 +15,29 @@
     position: relative;
     transition: all 0.2s ease 0s;
 }
+
+.btn-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    color: #1c524f;
+    font-size: 1.4rem;
+}
+.icon{
+    margin-left: 0.5rem;
+}
+.like-count{
+    font-weight: 500;
+}
+
 .container:hover{
     background-color: #2f88832c;
 }
 
 .post-text{
     margin: 20px 50px 10px 50px;
+    font-size: 1.2rem;
 }
 
 .username{
@@ -36,7 +53,7 @@
     right: 16px;
     font-size: 14px;
     font-weight: bold;
-    color: #2f8883;
+    color: #1c524f;
 }
 
 
