@@ -4,6 +4,8 @@ import { db } from "../firebase";
 import {  useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { toast } from "react-toastify";
+
 
 const PostCreate = () => {
 
@@ -27,20 +29,25 @@ const PostCreate = () => {
 };
     
     const addPost = async () => {
-        try{
-        const docRef = await addDoc(collection(db,"Posts"),{
-            postText:postText,
-            date:getCurrentDateTime(),
-            userId: user.uid,
-            liker: []
-        });
-        console.log("Doc saved: ", docRef.id);
-        setPostText("");
-        window.location.reload();
-    }
-    catch(e){
-        console.error("Error adding document: ", e)
-    }
+        if(postText.length > 10){
+            try{
+                const docRef = await addDoc(collection(db,"Posts"),{
+                    postText:postText,
+                    date:getCurrentDateTime(),
+                    userId: user.uid,
+                    liker: []
+                });
+                console.log("Doc id: ", docRef.id);
+                setPostText("");
+                // window.location.reload();
+                toast.success("İtirafınız Paylaşıldı...", {style:{backgroundColor:"#1c524f"}})
+            }
+            catch(e){
+                console.error("Error adding document: ", e)
+            }
+        }else{
+            toast.error("İçeriğiniz çok kısa!");
+        }
     }
     
   return (
