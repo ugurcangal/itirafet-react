@@ -2,29 +2,63 @@ import { useState } from 'react';
 import { Modal, Box, TextField } from '@mui/material';
 import { FaRegComment } from 'react-icons/fa';
 import { PostType } from '../types/Types';
+import { getCurrentDateTime } from '../Util';
+import { RootState } from '../redux/store';
+import { useSelector } from 'react-redux';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../firebase';
+import { toast } from 'react-toastify';
 
 interface PostProps{
     postProps: PostType
 }
 
 const CommentModal = ({postProps}: PostProps) => {
-const {postText,userId} = postProps;
+    const {id,postText,userId} = postProps;
     
-  const [open, setOpen] = useState(false);
+    const {user} = useSelector((state:RootState) => state.auth)
+    // const dispatch = useDispatch<any>();
+    
+    const [open, setOpen] = useState(false);
+    const [commentText, setCommentText] = useState<string>("");
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    boxShadow: 12,
-    p: 10,
-  };
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 600,
+        bgcolor: 'background.paper',
+        boxShadow: 12,
+        p: 10,
+    };
+
+
+
+  const sendComment = async () => {
+        if(commentText.length > 10){
+            try{
+                const docRef = await addDoc(collection(db,"Comments"),{
+                    commentText:commentText,
+                    date:getCurrentDateTime(),
+                    userId: user.uid,
+                    postId: id
+                });
+                console.log("Doc id: ", docRef.id);
+                toast.success("Yorumunuz gönderildi...", {style:{backgroundColor:"#1c524f"}})
+                setOpen(false)
+            }
+            catch(e){
+                console.error("Error adding document: ", e)
+            }
+        }else{
+            toast.error("İçeriğiniz çok kısa!");
+        }
+    }
+  
 
   return (
     <div>
@@ -48,10 +82,11 @@ const {postText,userId} = postProps;
             fullWidth
             margin="normal" 
             sx={{marginTop:"50px",}}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCommentText(e.target.value)}
           />
           <Box mt={2} display="flex" justifyContent="flex-end">
 
-            <button className='post-create-btn'>Yorumu Paylaş</button>
+            <button onClick={sendComment} className='post-create-btn'>Yorumu Paylaş</button>
           </Box>
         </Box>
       </Modal>
