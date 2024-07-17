@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom'
 
 const CommentList = () => {
 
-  const {comments,loading} = useSelector((state:RootState) => state.comments)
+  const {comments,commentLoading} = useSelector((state:RootState) => state.comments)
     const dispatch = useDispatch<any>();
     const { id } = useParams();
     
@@ -20,7 +20,7 @@ const CommentList = () => {
   
   return (
     <div>
-        {loading ? <Loading/> : 
+        {commentLoading ? <Loading/> : 
         comments && comments.map((comment: CommentType) => {
                 if(comment.postId == id){
                     return <Comment commentProps = {comment}/>

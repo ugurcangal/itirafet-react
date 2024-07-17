@@ -58,7 +58,6 @@ const Post = ({postProps}: PostProps) => {
         { currentLiker.includes(user.uid) ? <FaHeart onClick={dislike} className="icon"/> : <FaRegHeart onClick={like} className="icon" /> }
         <CommentModal postProps = {postProps}/>
         <HiDotsVertical className="icon"/>
-        
       </div>
       
     </div>

@@ -5,12 +5,12 @@ import { CommentType,  } from '../../types/Types';
 
 interface CommentState {
     comments: CommentType[];
-    loading: boolean;
+    commentLoading: boolean;
 }
 
 const initialState : CommentState = {
     comments: [],
-    loading: false,
+    commentLoading: false,
 } 
 
 
@@ -34,7 +34,7 @@ export const commentSlice = createSlice({
     },
     extraReducers:(builder) => {
         builder.addCase(fetchComments.pending, (state) => {
-            state.loading = true;
+            state.commentLoading = true;
         })
         builder.addCase(fetchComments.fulfilled, (state,action) => {
             state.comments = action.payload.sort((a, b) => {
@@ -48,7 +48,7 @@ export const commentSlice = createSlice({
             const dateB = parseDate(b.date);
             return dateB.getTime() - dateA.getTime(); // Azalan sırada sıralama
             });
-            state.loading = false;
+            state.commentLoading = false;
         })
     }
 })
