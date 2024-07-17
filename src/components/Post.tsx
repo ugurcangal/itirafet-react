@@ -11,7 +11,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoArrowBack } from "react-icons/io5";
+;
 
 
 interface PostProps{
@@ -61,7 +62,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
             navigate("/");
           }}
         >
-          <IoMdArrowRoundBack />
+          <IoArrowBack />
         </div>
       ) : ""}
       <div className="username">@anon-{userId}</div>
