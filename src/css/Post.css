@@ -49,6 +49,7 @@
 }
 
 .username{
+    margin-left: 20px;
     font-size: 14px;
     font-weight: bold;
     color: #1c524f;
@@ -56,10 +57,15 @@
 
 .post-date {
     position: absolute; /* Absolute positioning for the post-date */
-    top: 16px;
-    right: 16px;
+    top: 24px;
+    right: 24px;
     font-size: 14px;
     font-weight: bold;
+    color: #1c524f;
+}
+
+.back-btn{
+    font-size: 1.7rem;
     color: #1c524f;
 }
 

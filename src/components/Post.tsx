@@ -11,13 +11,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 
 interface PostProps{
-    postProps: PostType
+    postProps: PostType,
+    variant?: "default" | "details";
 }
 
-const Post = ({postProps}: PostProps) => {
+const Post = ({postProps, variant="default"}: PostProps) => {
   const {id,postText,date,userId,liker} = postProps;
 
   const [currentLiker, setCurrentLiker] = useState(liker);
@@ -47,9 +49,21 @@ const Post = ({postProps}: PostProps) => {
       console.error('Error updating document: ', error);
     }
   };
+
   
   return (
     <div className="container" onClick={() => navigate("/post/"+ id)}>
+      {variant === 'details' ? (
+        <div
+          className="back-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate("/");
+          }}
+        >
+          <IoMdArrowRoundBack />
+        </div>
+      ) : ""}
       <div className="username">@anon-{userId}</div>
       <div className="post-text">{postText}</div>
       <div className="post-date">{date}</div>

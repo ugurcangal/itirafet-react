@@ -27,7 +27,7 @@ const PostDetails = () => {
         {
             posts && posts.map((post: PostType) => {
                 if(post.id == id){
-                    return <Post postProps = {post}/>
+                    return <Post postProps = {post} variant="details"/>
                 }
             })
         }
