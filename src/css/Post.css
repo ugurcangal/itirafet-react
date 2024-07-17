@@ -14,6 +14,7 @@
     border-bottom: 1px solid #1c524f;
     position: relative;
     transition: all 0.2s ease 0s;
+    cursor: pointer;
 }
 
 .btn-container{
@@ -27,6 +28,11 @@
 .icon{
     margin-left: 0.5rem;
     cursor: pointer;
+}
+.icon:hover{
+    background-color: #07f5cd;
+    padding: 10px;
+    border-radius: 50%;
 }
 .like-count{
     font-weight: 500;

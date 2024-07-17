@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
+import { useNavigate } from "react-router-dom";
 
 
 interface PostProps{
@@ -21,7 +22,7 @@ const Post = ({postProps}: PostProps) => {
 
   const [currentLiker, setCurrentLiker] = useState(liker);
   const {user} = useSelector((state:RootState) => state.auth)
-  
+  const navigate = useNavigate()
   
   const like = async () => {
     try {
@@ -48,7 +49,7 @@ const Post = ({postProps}: PostProps) => {
   };
   
   return (
-    <div className="container">
+    <div className="container" onClick={() => navigate("/post/"+ id)}>
       <div className="username">@anon-{userId}</div>
       <div className="post-text">{postText}</div>
       <div className="post-date">{date}</div>

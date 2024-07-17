@@ -5,6 +5,7 @@ import { RootState } from '../redux/store';
 import AnonymousLogin from '../pages/AnonymousLogin';
 import { useEffect } from 'react';
 import { initializeAuth } from '../redux/slices/authSlice';
+import PostDetails from '../components/PostDetails';
 
 
 const RouterConfig = () => {
@@ -19,6 +20,8 @@ const dispatch = useDispatch<any>();
       <Routes>
         <Route path="/login" element={<AnonymousLogin />} />
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/post/:id" element={<PostDetails />} />
+
       </Routes>
   );
 }
