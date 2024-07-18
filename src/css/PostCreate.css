@@ -13,10 +13,12 @@
     outline: none;
     padding: 30px;
     border-bottom: 1px solid lightgrey;
-    border-radius: 5px;
     height: 140px;
     font-size: large;
     box-sizing: border-box;
+}
+.post-input:focus{
+    border-bottom: 2px solid #1c524f;
 }
 
 .post-create-btn{

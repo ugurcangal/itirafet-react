@@ -34,6 +34,12 @@ const CommentModal = ({postProps}: PostProps) => {
         bgcolor: 'background.paper',
         boxShadow: 12,
         p: 10,
+        '&:focus': {
+        outline: 'none'
+        },
+        '&:focus-visible': {
+          outline: 'none'
+        }
     };
 
 

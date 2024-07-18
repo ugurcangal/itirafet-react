@@ -6,7 +6,7 @@ import { FaHeart } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { db } from "../firebase";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
@@ -27,7 +27,8 @@ const Post = ({postProps, variant="default"}: PostProps) => {
   const {user} = useSelector((state:RootState) => state.auth)
   const navigate = useNavigate()
   
-  const like = async () => {
+  const like = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     try {
       const postDocRef = doc(db, 'Posts', id);
       await updateDoc(postDocRef, {
@@ -39,7 +40,8 @@ const Post = ({postProps, variant="default"}: PostProps) => {
     }
   };
   
-  const dislike = async () => {
+  const dislike = async (e: React.MouseEvent) => {
+    e.stopPropagation();
     try {
       const postDocRef = doc(db, 'Posts', id);
       await updateDoc(postDocRef, {
@@ -53,7 +55,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
 
   
   return (
-    <div className="container" onClick={() => navigate("/post/"+ id)}>
+    <div className="container" onClick={() => { if (variant === 'default') navigate("/post/" + id); }}>
       {variant === 'details' ? (
         <div
           className="back-btn"
@@ -71,8 +73,10 @@ const Post = ({postProps, variant="default"}: PostProps) => {
       <div className="btn-container">
         <div className="like-count">{currentLiker.length}</div>
         { currentLiker.includes(user.uid) ? <FaHeart onClick={dislike} className="icon"/> : <FaRegHeart onClick={like} className="icon" /> }
-        <CommentModal postProps = {postProps}/>
-        <HiDotsVertical className="icon"/>
+        <div onClick={(e) => e.stopPropagation()}>
+          <CommentModal postProps={postProps} />
+        </div>
+        <HiDotsVertical onClick={(e) => e.stopPropagation()} className="icon"/>
       </div>
       
     </div>

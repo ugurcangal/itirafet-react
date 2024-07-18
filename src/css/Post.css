@@ -30,9 +30,7 @@
     cursor: pointer;
 }
 .icon:hover{
-    background-color: #07f5cd;
-    padding: 10px;
-    border-radius: 50%;
+    color: #f8853e;
 }
 .like-count{
     font-weight: 500;
