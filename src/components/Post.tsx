@@ -2,11 +2,9 @@ import { PostType } from "../types/Types"
 import "../css/Post.css"
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-// import { FaRegComment } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { db } from "../firebase";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
@@ -24,7 +22,7 @@ interface PostProps{
 const Post = ({postProps, variant="default"}: PostProps) => {
   const {id,postText,date,userId,liker} = postProps;
 
-  const [currentLiker, setCurrentLiker] = useState(liker);
+  
   const {user} = useSelector((state:RootState) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -36,8 +34,8 @@ const Post = ({postProps, variant="default"}: PostProps) => {
       await updateDoc(postDocRef, {
         liker: arrayUnion(user.uid)
       });
-      setCurrentLiker((currentLiker) => [...currentLiker, user.uid])
-      dispatch(updateLiker({ id, liker: [...currentLiker, user.uid] }));
+      
+      dispatch(updateLiker({ id, liker: [...liker, user.uid] }));
     } catch (error) {
       console.error('Error updating document: ', error);
     }
@@ -50,8 +48,8 @@ const Post = ({postProps, variant="default"}: PostProps) => {
       await updateDoc(postDocRef, {
         liker: arrayRemove(user.uid)
       });
-      setCurrentLiker((prev) => prev.filter((uid) => uid !== user.uid));
-      dispatch(updateLiker({ id, liker: currentLiker.filter((uid) => uid !== user.uid) }));
+      
+      dispatch(updateLiker({ id, liker: liker.filter((uid) => uid !== user.uid) }));
     } catch (error) {
       console.error('Error updating document: ', error);
     }
@@ -75,8 +73,8 @@ const Post = ({postProps, variant="default"}: PostProps) => {
       <div className="post-text">{postText}</div>
       <div className="post-date">{date}</div>
       <div className="btn-container">
-        <div className="like-count">{currentLiker.length}</div>
-        { currentLiker.includes(user.uid) ? <FaHeart onClick={dislike} className="icon"/> : <FaRegHeart onClick={like} className="icon" /> }
+        <div className="like-count">{liker.length}</div>
+        { liker.includes(user.uid) ? <FaHeart onClick={dislike} className="icon"/> : <FaRegHeart onClick={like} className="icon" /> }
         <div onClick={(e) => e.stopPropagation()}>
           <CommentModal postProps={postProps} />
         </div>
