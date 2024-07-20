@@ -7,11 +7,12 @@ import { HiDotsVertical } from "react-icons/hi";
 import { db } from "../firebase";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import { updateLiker } from "../redux/slices/postsSlice";
 ;
 
 
@@ -26,6 +27,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
   const [currentLiker, setCurrentLiker] = useState(liker);
   const {user} = useSelector((state:RootState) => state.auth)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   
   const like = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -35,6 +37,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
         liker: arrayUnion(user.uid)
       });
       setCurrentLiker((currentLiker) => [...currentLiker, user.uid])
+      dispatch(updateLiker({ id, liker: [...currentLiker, user.uid] }));
     } catch (error) {
       console.error('Error updating document: ', error);
     }
@@ -48,6 +51,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
         liker: arrayRemove(user.uid)
       });
       setCurrentLiker((prev) => prev.filter((uid) => uid !== user.uid));
+      dispatch(updateLiker({ id, liker: currentLiker.filter((uid) => uid !== user.uid) }));
     } catch (error) {
       console.error('Error updating document: ', error);
     }

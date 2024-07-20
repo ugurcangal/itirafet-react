@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit'
 import {db} from '../../firebase'
 import { collection , getDocs } from 'firebase/firestore';
 import { PostType } from '../../types/Types';
@@ -30,7 +30,13 @@ export const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers:{
-        
+        updateLiker: (state, action: PayloadAction<{ id: string, liker: string[] }>) => {
+            const { id, liker } = action.payload;
+            const post = state.posts.find(post => post.id === id);
+            if (post) {
+                post.liker = liker;
+            }
+        },
     },
     extraReducers:(builder) => {
         builder.addCase(fetchPosts.pending, (state) => {
@@ -53,6 +59,6 @@ export const postsSlice = createSlice({
     }
 })
 
-export const {  } = postsSlice.actions
+export const { updateLiker } = postsSlice.actions
 
 export default postsSlice.reducer
