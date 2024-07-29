@@ -1,0 +1,29 @@
+.header {
+  background-color: #1c524f;
+  padding: 4px 300px;
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.header-logo{
+    cursor: pointer;
+    font-size: 18px;
+}
+.header-logo:hover{
+    color: #f8853e;
+}
+
+.header-icon{
+    font-size: 30px;
+    cursor: pointer;
+}
+.header-icon:hover{
+    color: #f8853e;
+}
+
+.header-username{
+    font-size: 16px;
+}

@@ -14,13 +14,11 @@
     padding-left: 80px;
     border-bottom: 1px solid lightgrey;
     border-radius: 5px;
-    height: 100px;
+    height: 130px;
     font-size: large;
     box-sizing: border-box;
 }
-.comment-input:focus{
-    height: 150px;
-}
+
 
 .sendComment-btn{
     width: 100%;

@@ -2,6 +2,7 @@ import { Bounce, ToastContainer } from 'react-toastify'
 import './App.css'
 import RouterConfig from './config/RouterConfig'
 import 'react-toastify/dist/ReactToastify.css';
+import Header from './components/Header';
 
 function App() {
   
@@ -9,6 +10,7 @@ function App() {
   
   return (
     <div>
+      <Header/>
       <RouterConfig/>
       <ToastContainer 
         position="bottom-right"

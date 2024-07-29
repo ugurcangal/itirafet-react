@@ -76,7 +76,7 @@ const CommentModal = ({postProps}: PostProps) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={{...style, borderRadius:"10px"}}>
-          <button style={{background:"none", border:"none", position:"absolute", top:"20px", right:"30px", fontSize:"2rem", color:"#1c524f",cursor:"pointer"}} onClick={handleClose}>x</button>
+          <button style={{background:"none", border:"none", position:"absolute", top:"20px", right:"30px", fontSize:"2rem", color:"#f8853e",cursor:"pointer", }} onClick={handleClose}>x</button>
           <h4 style={{color:"#1c524f"}}>@anon-{userId} : </h4>
           <div style={{marginLeft:"20px", marginTop:"30px"}}>{postText}</div>
           <TextField

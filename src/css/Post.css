@@ -59,12 +59,15 @@
     right: 24px;
     font-size: 14px;
     font-weight: bold;
-    color: #1c524f;
+    color: #f8853e;
 }
 
 .back-btn{
     font-size: 1.7rem;
     color: #1c524f;
+}
+.back-btn:hover{
+    color: #f8853e;
 }
 
 
