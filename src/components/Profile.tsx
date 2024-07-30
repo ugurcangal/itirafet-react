@@ -1,8 +1,11 @@
+import ProfileTabs from "./ProfileTabs"
 
 
 const Profile = () => {
   return (
-    <div>Profile</div>
+    <div>
+      <ProfileTabs/>
+    </div>
   )
 }
 
