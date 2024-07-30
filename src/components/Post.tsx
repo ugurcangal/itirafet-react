@@ -11,7 +11,9 @@ import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { updateLiker } from "../redux/slices/postsSlice";
-;
+import React from "react";
+import Popover from '@mui/material/Popover';
+import { Typography } from "@mui/material";
 
 
 interface PostProps{
@@ -26,6 +28,20 @@ const Post = ({postProps, variant="default"}: PostProps) => {
   const {user} = useSelector((state:RootState) => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement | SVGElement>) => {
+    setAnchorEl(event.currentTarget as HTMLButtonElement);
+    event.stopPropagation();
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const popoverId = open ? 'simple-popover' : undefined;
   
   const like = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -78,7 +94,26 @@ const Post = ({postProps, variant="default"}: PostProps) => {
         <div onClick={(e) => e.stopPropagation()}>
           <CommentModal postProps={postProps} />
         </div>
-        <HiDotsVertical onClick={(e) => e.stopPropagation()} className="icon"/>
+
+        <HiDotsVertical onClick={(e) => {
+          e.stopPropagation()
+          handleClick(e);
+        }} className="icon"/>
+        <Popover
+        id={popoverId}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+          onClick={(e) => {
+          e.stopPropagation(); 
+        }}
+      >
+        <Typography sx={{ p: 2 }}>Şikayet Et</Typography>
+      </Popover>
       </div>
       
     </div>
