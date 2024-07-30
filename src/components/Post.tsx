@@ -4,16 +4,17 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { db } from "../firebase";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import { updateLiker } from "../redux/slices/postsSlice";
+import { fetchPosts, updateLiker } from "../redux/slices/postsSlice";
 import React from "react";
 import Popover from '@mui/material/Popover';
-import { Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 
 
 interface PostProps{
@@ -27,7 +28,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
   
   const {user} = useSelector((state:RootState) => state.auth)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<any>()
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
@@ -71,6 +72,17 @@ const Post = ({postProps, variant="default"}: PostProps) => {
     }
   };
 
+  const deletePost = async () => {
+  try {
+    const postDocRef = doc(db, 'Posts', id);
+    await deleteDoc(postDocRef);
+    toast.success("Gönderi başarıyla silindi...", {style:{backgroundColor:"#1c524f"}})
+    dispatch(fetchPosts());
+  } catch (error) {
+    console.error('Error deleting post: ', error);
+  }
+  };
+
   
   return (
     <div className="container" onClick={() => { if (variant === 'default') navigate("/post/" + id); }}>
@@ -112,7 +124,9 @@ const Post = ({postProps, variant="default"}: PostProps) => {
           e.stopPropagation(); 
         }}
       >
-        <Typography sx={{ p: 2 }}>Şikayet Et</Typography>
+        {
+          userId == user.uid ? <Button sx={{ p: 2 }} onClick={deletePost}>Paylaşımı Sil</Button> : <Button sx={{ p: 2 }}>Şikayet Et</Button>  
+        }
       </Popover>
       </div>
       
