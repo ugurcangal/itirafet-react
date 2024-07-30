@@ -19,7 +19,7 @@ const PostCreate = () => {
 
 
     const addPost = async () => {
-        if(postText.length > 10){
+        if(postText.length > 10 && postText.length < 1500){
             try{
                 const docRef = await addDoc(collection(db,"Posts"),{
                     postText:postText,
@@ -36,7 +36,10 @@ const PostCreate = () => {
             catch(e){
                 console.error("Error adding document: ", e)
             }
-        }else{
+        }else if(postText.length > 1500){
+            toast.error("İçerik maksimum 1500 karakter olabilir!");
+        }
+        else{
             toast.error("İçeriğiniz çok kısa!");
         }
     }
