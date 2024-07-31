@@ -17,7 +17,7 @@ const Header = () => {
             <div>
                 <div className="header-icon" onClick={() => { navigate("/profile/");}} style={{display:"flex", flexDirection:"row", alignItems:"center",justifyContent:"center",}}>
                     <IoPersonSharp />
-                    <p style={{marginLeft:"10px", fontSize:"16px"}}>Profile</p>
+                    <p>Profile</p>
                 </div>
             </div>
         </div>

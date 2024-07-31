@@ -38,3 +38,16 @@
 .post-create-btn:hover{
     background-color: #f8853e;
 }
+
+
+@media (max-width: 600px){
+    .postCreate-div{
+        width: 80%;
+    }
+    .post-create-btn{
+        padding: 14px;
+    }
+    .post-input{
+        font-size: medium;
+    }
+}

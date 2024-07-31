@@ -73,16 +73,12 @@
 @media (max-width: 600px){
     .container{
         width: 100%;
-        box-sizing: unset;
     }
     .username{
         font-size: 12px;
         margin-top: 30px;
     }
-    .post-date{
-        right: 48px;
-    }
-    .btn-container{
-        margin-right: 20px;
+    .post-text{
+        font-size: 1rem;
     }
 }
