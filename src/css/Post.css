@@ -4,8 +4,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    width: 45%;
-    max-width: 1200px;
     margin: 0px auto;
     padding: 30px;
     box-sizing: border-box;
@@ -71,3 +69,20 @@
 }
 
 
+
+@media (max-width: 600px){
+    .container{
+        width: 100%;
+        box-sizing: unset;
+    }
+    .username{
+        font-size: 12px;
+        margin-top: 30px;
+    }
+    .post-date{
+        right: 48px;
+    }
+    .btn-container{
+        margin-right: 20px;
+    }
+}

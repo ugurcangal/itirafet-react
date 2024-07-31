@@ -22,12 +22,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     font-size: 18px;
     font-weight: 600;
     color: #f8853e;
     border: none;
     background: none;
     padding: 18px;
+    width: 100%;
     cursor: pointer;
 }
 .tabs-box .tabs p{
