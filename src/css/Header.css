@@ -1,9 +1,9 @@
 .header {
   background-color: #1c524f;
-  /* padding: 4px 300px; */
+  padding: 4px 0px;
   color: rgb(255, 255, 255);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
 }
@@ -11,18 +11,20 @@
 .header-logo{
     cursor: pointer;
     font-size: 18px;
+    /* margin-left: 100px; */
 }
 .header-logo:hover{
     color: #f8853e;
 }
 
 .header-icon{
+    /* margin-right: 100px; */
     font-size: 30px;
     cursor: pointer;
 }
 .header-icon p{
     margin-left: 10px;
-    font-size: 12px;
+    font-size: 1rem;
 }
 .header-icon:hover{
     color: #f8853e;
@@ -33,6 +35,9 @@
 }
 
 @media (max-width: 600px){
+    .header{
+        justify-content: space-between;
+    }
     .header-logo{
         margin-left: 2rem;
     }
