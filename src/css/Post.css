@@ -62,6 +62,7 @@
 }
 
 .back-btn{
+    width: fit-content;
     font-size: 1.7rem;
     color: #1c524f;
 }
