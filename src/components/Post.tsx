@@ -11,7 +11,7 @@ import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { fetchPosts, updateLiker } from "../redux/slices/postsSlice";
-import React from "react";
+import React, {  } from "react";
 import Popover from '@mui/material/Popover';
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
@@ -31,7 +31,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
   const dispatch = useDispatch<any>()
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
-
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement | SVGElement>) => {
     setAnchorEl(event.currentTarget as HTMLButtonElement);
     event.stopPropagation();
@@ -103,8 +103,15 @@ const Post = ({postProps, variant="default"}: PostProps) => {
       <div className="btn-container">
         <div className="like-count">{liker.length}</div>
         { liker.includes(user.uid) ? <FaHeart onClick={dislike} className="icon"/> : <FaRegHeart onClick={like} className="icon" /> }
-        <div onClick={(e) => e.stopPropagation()}>
-          <CommentModal postProps={postProps} />
+        <div onClick={(e) => {
+          e.stopPropagation();
+          if(window.innerWidth <= 900){
+            navigate("/post/" + id);
+          }else{
+            <CommentModal postProps={postProps} />
+          }
+        }}>
+            <CommentModal postProps={postProps} />
         </div>
 
         <HiDotsVertical onClick={(e) => {
