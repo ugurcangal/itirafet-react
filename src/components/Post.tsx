@@ -11,10 +11,11 @@ import CommentModal from "./CommentModal";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { fetchPosts, updateLiker } from "../redux/slices/postsSlice";
-import React, {  } from "react";
+import React, { useRef } from "react";
 import Popover from '@mui/material/Popover';
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
+import ComplainModal from "./ComplainModal";
 
 
 interface PostProps{
@@ -31,6 +32,8 @@ const Post = ({postProps, variant="default"}: PostProps) => {
   const dispatch = useDispatch<any>()
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const popoverRef = useRef(null);
   
   const handleClick = (event: React.MouseEvent<HTMLButtonElement | SVGElement>) => {
     setAnchorEl(event.currentTarget as HTMLButtonElement);
@@ -127,12 +130,13 @@ const Post = ({postProps, variant="default"}: PostProps) => {
           vertical: 'bottom',
           horizontal: 'right',
         }}
+          ref={popoverRef}
           onClick={(e) => {
           e.stopPropagation(); 
         }}
       >
         {
-          userId == user.uid ? <Button sx={{ p: 2 }} onClick={deletePost}>Paylaşımı Sil</Button> : <Button sx={{ p: 2 }}>Şikayet Et</Button>  
+          userId == user.uid ? <Button sx={{ p: 2 }} onClick={deletePost}>Paylaşımı Sil</Button> : <ComplainModal postProps={postProps}/> 
         }
       </Popover>
       </div>
