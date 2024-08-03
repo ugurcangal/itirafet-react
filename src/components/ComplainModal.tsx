@@ -8,11 +8,12 @@ import { RootState } from "../redux/store";
 import { PostType } from "../types/Types";
 import { toast } from "react-toastify";
 
-interface PostProps{
-    postProps: PostType
+interface ComplainModalProps {
+    postProps: PostType;
+    handleClosePopover: () => void; 
 }
 
-const ComplainModal = ({postProps}: PostProps) => {
+const ComplainModal = ({ postProps, handleClosePopover }: ComplainModalProps) => {
     const {id,postText} = postProps;
 
     const [open, setOpen] = useState(false);
@@ -20,7 +21,10 @@ const ComplainModal = ({postProps}: PostProps) => {
     const {user} = useSelector((state:RootState) => state.auth)
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        handleClosePopover();
+    }
 
     const style = {
         position: 'absolute',
@@ -53,6 +57,7 @@ const ComplainModal = ({postProps}: PostProps) => {
                 toast.success("Şikayet gönderildi...", {style:{backgroundColor:"#1c524f"}})
                 setComplainText("");
                 setOpen(false);
+                handleClosePopover();
             }
             catch(e){
                 console.error("Error adding document: ", e)

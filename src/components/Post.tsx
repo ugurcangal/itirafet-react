@@ -136,7 +136,7 @@ const Post = ({postProps, variant="default"}: PostProps) => {
         }}
       >
         {
-          userId == user.uid ? <Button sx={{ p: 2 }} onClick={deletePost}>Paylaşımı Sil</Button> : <ComplainModal postProps={postProps}/> 
+          userId == user.uid ? <Button sx={{ p: 2 }} onClick={deletePost}>Paylaşımı Sil</Button> : <ComplainModal postProps={postProps} handleClosePopover={handleClose} /> 
         }
       </Popover>
       </div>
