@@ -17,7 +17,7 @@ const PostList = () => {
     },[])
   
   return (
-    <div>
+    <div style={{paddingBottom: "50px"}}>
         {loading ? <Loading/> : 
         posts && posts.map((post : PostType) => (
           <Post key={post.id} postProps = {post}/>
