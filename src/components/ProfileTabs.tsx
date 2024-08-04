@@ -19,6 +19,10 @@ const ProfileTabs = () => {
     const {posts} = useSelector((state:RootState) => state.posts)
     const {user} = useSelector((state:RootState) => state.auth)
 
+    
+    const userPosts = posts.filter((post: PostType) => post.userId === user.uid);
+    const likedPosts = posts.filter((post: PostType) => post.liker.includes(user.uid));
+
   return (
     <div className="tabs-container">
         <div className="tabs-box">
@@ -33,24 +37,24 @@ const ProfileTabs = () => {
         </div>
 
         <div className="content-box">
-            {toggleState === 1 && 
-                posts && posts.map((post: PostType) => {
-                if (post.userId === user.uid) {
-                    return <Post key={post.id} postProps={post} variant="default" />;
-                } else {
-                    return null;
-                }
-                })
-            }
-            {toggleState === 2 && 
-                posts && posts.map((post: PostType) => {
-                if (post.liker.includes(user.uid)) {
-                    return <Post key={post.id} postProps={post} variant="default" />;
-                } else {
-                    return null;
-                }
-                })
-            }
+            {toggleState === 1 && (
+                    userPosts.length > 0 ? (
+                        userPosts.map((post: PostType) => (
+                            <Post key={post.id} postProps={post} variant="default" />
+                        ))
+                    ) : (
+                        <div style={{textAlign:"center",marginTop:"80px",fontWeight:"bold",fontSize:"1.3rem"}}>Gönderi listeniz boş.</div>
+                    )
+                )}
+                {toggleState === 2 && (
+                    likedPosts.length > 0 ? (
+                        likedPosts.map((post: PostType) => (
+                            <Post key={post.id} postProps={post} variant="default" />
+                        ))
+                    ) : (
+                        <div style={{textAlign:"center",marginTop:"80px",fontWeight:"bold",fontSize:"1.3rem"}}>Beğendiğiniz gönderi yok.</div>
+                    )
+                )}
         </div>
 
     </div>
