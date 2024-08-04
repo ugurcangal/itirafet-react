@@ -18,15 +18,19 @@ const CommentList = () => {
         dispatch(fetchComments())
     },[])
   
+  const filteredComments = comments.filter((comment: CommentType) => comment.postId === id);
+
   return (
     <div>
-        {commentLoading ? <Loading/> : 
-        comments && comments.map((comment: CommentType) => {
-                if(comment.postId == id){
-                    return <Comment commentProps = {comment}/>
-                }
-            })
-      } 
+      {commentLoading ? (
+        <Loading />
+      ) : filteredComments.length === 0 ? (
+        <div style={{textAlign:"center",marginTop:"80px",fontWeight:"bold",fontSize:"1.2rem"}}>Bu gönderiye henüz yorum yapılmamış</div>
+      ) : (
+        filteredComments.map((comment: CommentType) => (
+          <Comment key={comment.id} commentProps={comment} />
+        ))
+      )}
     </div>
   )
 }
