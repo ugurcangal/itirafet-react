@@ -12,7 +12,7 @@ const AnonymousLogin: React.FC = () => {
   const handleLogin = async () => {
     try {
       await dispatch(anonymousLogin()).unwrap();
-      navigate('/');
+      navigate('/', {replace : true});
     } catch (error) {
       alert('Anonymous login failed');
     }
