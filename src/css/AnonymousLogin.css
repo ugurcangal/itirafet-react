@@ -11,6 +11,7 @@
 
 .logo{
     width: 30%;
+    /* margin: 0 auto; */
     transition: all 0.8s ease 0s;
 
 }
@@ -40,13 +41,14 @@
 }
 
 
-@media (max-width: 600px){
+@media (max-width: 768px){
     .logo{
         width: 70%;
     }
     .login-btn{
+        width: 70%;
         padding: 16px 30px;
         font-size: medium;
-        margin-top: 70px;
+        margin-top: 80px;
     }
 }
