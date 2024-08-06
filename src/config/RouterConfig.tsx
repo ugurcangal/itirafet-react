@@ -19,7 +19,7 @@ const dispatch = useDispatch<any>();
 
   return (
       <Routes>
-        <Route path="/login" element={<AnonymousLogin />} />
+        <Route path="/login" element={user ? <Navigate to="/"/> : <AnonymousLogin />} />
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
         <Route path="/post/:id" element={<PostDetails />} />
         <Route path="/profile/" element={<Profile />} />
