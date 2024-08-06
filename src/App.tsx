@@ -3,14 +3,16 @@ import './App.css'
 import RouterConfig from './config/RouterConfig'
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
+import { useSelector } from 'react-redux';
+import { RootState } from './redux/store';
 
 function App() {
   
- 
+ const user = useSelector((state: RootState) => state.auth.user);
   
   return (
     <div>
-      <Header/>
+      {user ? <Header/> : null}
       <RouterConfig/>
       <ToastContainer 
         position="bottom-right"

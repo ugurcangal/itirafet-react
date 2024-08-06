@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { anonymousLogin } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import "../css/AnonymousLogin.css"
+import logoText from '../assets/logoText.svg';
 
 const AnonymousLogin: React.FC = () => {
   const dispatch = useDispatch<any>();
@@ -19,7 +20,7 @@ const AnonymousLogin: React.FC = () => {
 
   return (
     <div className='general'>
-        <img src="./src/assets/logoText.svg" alt="" className='logo'/>
+        <img src={logoText} alt="" className='logo'/>
         <button className='login-btn' onClick={handleLogin}>Login Anonymously</button>
     </div>
   );
